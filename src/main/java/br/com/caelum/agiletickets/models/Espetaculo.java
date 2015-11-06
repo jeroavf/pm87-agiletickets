@@ -115,7 +115,7 @@ public class Espetaculo {
 				nova.setEspetaculo(this);
 				nova.setInicio(inicio.plusDays(i).toDateTime(horario));
 
-				//sessoes.add(nova);
+				sessoes.add(nova);
 			}
 		} else {
 			int semanas = Weeks.weeksBetween(inicio, fim).getWeeks();
