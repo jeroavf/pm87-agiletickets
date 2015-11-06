@@ -101,30 +101,32 @@ public class Espetaculo {
      */
 	public List<Sessao> criaSessoes(LocalDate inicio, LocalDate fim, LocalTime horario, Periodicidade periodicidade) {
 		 
-		if(fim.isBefore(inicio)) throw new IllegalArgumentException("Data final deve ser maio que o data inicial !")  ;
-		
-		List<Sessao> sessoes = newArrayList();
-		
-
-		if(periodicidade.equals(Periodicidade.DIARIA)) {
-			int numSessoesDiarias = Days.daysBetween(inicio, fim).getDays() ;
-			
-			for( int i = 0 ; i <= numSessoesDiarias ; i++) {
-				 
-				Sessao sessao = new Sessao();
-				sessao.setEspetaculo(this);
-				sessao.setInicio(inicio.plusDays(i).toDateTime(horario) );
-
-				sessoes.add(sessao);
-				
-			}
-			return sessoes ;
-			
+		if (inicio.isAfter(fim)) {
+			throw new IllegalArgumentException("Data de inicio não pode ser maior do que a data fim");
 		}
-		
-		
-		
-		return null ;
+
+		List<Sessao> sessoes = new ArrayList<Sessao>();
+		if (Periodicidade.DIARIA == periodicidade) {
+			int dias = Days.daysBetween(inicio, fim).getDays();
+			for (int i = 0; i <= dias; i++) {
+				Sessao nova = new Sessao();
+				nova.setEspetaculo(this);
+				nova.setInicio(inicio.plusDays(i).toDateTime(horario));
+
+				sessoes.add(nova);
+			}
+		} else {
+			int semanas = Weeks.weeksBetween(inicio, fim).getWeeks();
+			for (int i = 0; i <= semanas; i++) {
+				Sessao nova = new Sessao();
+				nova.setEspetaculo(this);
+				nova.setInicio(inicio.plusWeeks(i).toDateTime(horario));
+
+				sessoes.add(nova);
+			}
+		}
+
+		return sessoes;
 		  
 		
 	}
