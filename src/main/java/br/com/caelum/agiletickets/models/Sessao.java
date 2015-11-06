@@ -113,6 +113,11 @@ public class Sessao {
 
          
 	}
+	
+	public double disponibilidade() {
+		return (this.getTotalIngressos() - this.getIngressosReservados()) / this.getTotalIngressos().doubleValue() ;
+		
+	}
 
 	public void setPreco(BigDecimal preco) {
 		this.preco = preco;
@@ -121,5 +126,10 @@ public class Sessao {
 	public BigDecimal getPreco() {
 		return preco;
 	}
+	
+	public BigDecimal getPrecoComAgio(double agio) {
+		return this.getPreco().multiply(BigDecimal.valueOf(agio));
+	}	
+	
 	
 }
